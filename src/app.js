@@ -40,7 +40,7 @@ $( document ).ready(() => {
 
     function calc(){
 
-        console.log(typeof(gameApp.balls));
+        // console.log(typeof(gameApp.balls));
         for (let ball of gameApp.balls){
 
          if(ball.x>170) ball.move = 'left';
@@ -56,6 +56,14 @@ $( document ).ready(() => {
 
         }
 
+        // collision canon with ball
+        for (let ball of gameApp.balls){
+            if ((gameApp.canon_x <= ball.x + 30 && gameApp.canon_x >= ball.x - 30) && 
+            (180 <= ball.y + 30 && 180 >= ball.y - 30))
+            {
+                alert('Hit canon! GAME OVER');
+            }
+        }
 
         for (let bullet of gameApp.bullets){
 
@@ -71,11 +79,11 @@ $( document ).ready(() => {
 
                 var el = document.querySelector('#canon');
                 var style = getComputedStyle(el).top;
-                console.log('canony', style)
+                // console.log('canony', style)
                 const canon_y = Math.floor(style.slice(0,-2));
 
-                console.log(size_ball);
-                console.log(bullet.x, bullet.y, ball.x, ball.y)
+                console.log(canon_y);
+                // console.log(bullet.x, bullet.y, ball.x, ball.y)
                 if ((bullet.y <= ball.y + size_ball && bullet.y >= ball.y - size_ball) && 
                      (bullet.x <= ball.x+ size_ball && bullet.x >= ball.x - size_ball))
                 {
@@ -84,14 +92,11 @@ $( document ).ready(() => {
                     var rand_x = Math.floor(Math.random()*Math.floor(170));
                     var y = 20;
                     gameApp.balls.push({x: rand_x, y: y, move: 'down'});
-                    console.log('push',gameApp.balls);
+                    // console.log('push',gameApp.balls);
                     $('#appGame').append(`<div style="top: ${y}px; left: ${rand_x}px" class="ball"></div>`);
                 }
-                if ((gameApp.canon_x <= ball.x + size_ball && gameApp.canon_x >= ball.x - size_ball) && 
-                (canon_y <= ball.y + size_ball && canon_y >= ball.y - size_ball))
-                {
-                    alert('Hit canon! GAME OVER');
-                }
+               
+
 
             }
 
@@ -119,7 +124,7 @@ $( document ).ready(() => {
         if(e.keyCode === 32) {
             gameApp.bullets.push({x: gameApp.canon_x, y: 185})
         }
-        console.log(gameApp);
+        // console.log(gameApp);
     })
 
     $(document).on('keyup', (e) => {
