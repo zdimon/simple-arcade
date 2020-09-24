@@ -36,3 +36,10 @@ body {
     top: 10px;
     left: 10px;
 }
+
+.explosion {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    display: none;
+}
